@@ -1,4 +1,4 @@
-def add_expense(expenses: list):
+def add_expense(expenses: list)-> None:
     """prompt for an amount and category, add the expense to the list."""
     try:
         amount = float(input("Amount :"))
@@ -9,10 +9,14 @@ def add_expense(expenses: list):
     expense = {"amount": amount, "category": category}
     expenses.append(expense)
 
-def list_expenses(expenses):
+
+def list_expenses(expenses: list)-> None:
     """Print every expense with category using enumerate """
     for i, expense in enumerate(expenses, start=1):
-        print(f"{i}. {expense["category"]}: ${expense["amount"]:.2f}")
+        print(f"{i}. {expense['category']}: ${expense['amount']:.2f}")
+
+
+
 
 def main():
     """Run the add/list/quit menu loop."""
@@ -27,6 +31,9 @@ def main():
             break
         else:
             print("Unknown option")
+
+
+
 
 
 main()
