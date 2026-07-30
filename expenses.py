@@ -1,3 +1,12 @@
+def clean_category(raw: str) -> str:
+    """Normalize a raw category string for consistent grouping."""
+    raw = raw.strip().lower()
+    if not raw:
+        return "uncategorized"
+    else:
+        return raw
+
+
 def add_expense(expenses: list)-> None:
     """prompt for an amount and category, add the expense to the list."""
     try:
@@ -5,7 +14,7 @@ def add_expense(expenses: list)-> None:
     except ValueError:
         print("Invalid Input")
         return
-    category = input("Category :")
+    category = clean_category(input("Category :"))
     expense = {"amount": amount, "category": category}
     expenses.append(expense)
 
@@ -22,7 +31,7 @@ def main():
     """Run the add/list/quit menu loop."""
     expenses = []           # the in-memory list lives here
     while True:
-        choice = input("(a)dd, (l)ist, (q)uit: ")
+        choice = input("(a)dd, (l)ist, (q)uit: ").strip().lower()
         if choice == "a":
             add_expense(expenses)
         elif choice == "l":
