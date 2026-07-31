@@ -1,3 +1,9 @@
+def grand_total(expenses: list) -> None:
+    """Print the sum of all the amounts"""
+    total = sum(expense["amount"] for expense in expenses)
+    print(f"Total spent: {total:.2f}")
+
+
 def clean_category(raw: str) -> str:
     """Normalize a raw category string for consistent grouping."""
     raw = raw.strip().lower()
@@ -31,11 +37,13 @@ def main():
     """Run the add/list/quit menu loop."""
     expenses = []           # the in-memory list lives here
     while True:
-        choice = input("(a)dd, (l)ist, (q)uit: ").strip().lower()
+        choice = input("(a)dd, (l)ist, (s)ummary, (q)uit: ").strip().lower()
         if choice == "a":
             add_expense(expenses)
         elif choice == "l":
             list_expenses(expenses)
+        elif choice == "s":
+            grand_total(expenses)
         elif choice == "q":
             break
         else:
