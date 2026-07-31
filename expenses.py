@@ -1,9 +1,28 @@
-def grand_total(expenses: list) -> None:
-    """Print the sum of all the amounts"""
-    total = sum(expense["amount"] for expense in expenses)
-    print(f"Total spent: {total:.2f}")
+def grand_total(expenses: list) -> float:
+    """Return the sum of all the amounts"""
+    return sum(expense["amount"] for expense in expenses)
 
 
+def category_totals(expenses: list[dict]) -> dict[str, float]:
+    """Return a dict mapping each category to its total amount."""
+    result = {}
+    for expense in expenses:
+        category = expense["category"]
+        result[category] = result.get(category, 0) + expense["amount"]
+    return result
+
+
+def print_summary(expenses: list[dict]) -> None:
+    """Print total expense and category wise expense"""
+    if not expenses:
+        print("No expenses yet")
+        return
+    total = grand_total(expenses)
+    print(f"Total spent: ${total:.2f}")
+    for category, amount in category_totals(expenses).items():
+        print(f"{category} : ${amount:.2f}")
+
+        
 def clean_category(raw: str) -> str:
     """Normalize a raw category string for consistent grouping."""
     raw = raw.strip().lower()
@@ -43,7 +62,7 @@ def main():
         elif choice == "l":
             list_expenses(expenses)
         elif choice == "s":
-            grand_total(expenses)
+            print_summary(expenses)
         elif choice == "q":
             break
         else:
